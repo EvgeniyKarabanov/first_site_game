@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block app_title %}
+{{ count-1 }}
+{% endblock %}
+
+{% block app_content %}
+<form action="/lab/{{count}}", method="post">
+    {{ form.csrf_token() }}
+    {% for field in form if field.name != "csrf_token" and field.name != "submit"%}
+            <p class="label label-primary">{{field.label}}</p>
+            <p>
+            {{ field }}
+            {% for error in field.errors %}
+                {{ error }}
+            {% endfor %}
+            </p>
+    {% endfor %}
+        {{form.submit}}
+</form>
+{% endblock %}
+
+{% block app_content_rigth %}
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            {% if message == 'Вы не можете сюда идти!' %}
+                <p class="label label-primary">{{ message }}</p>
+            {% else %}
+                {{ message}}
+                <script>alert('Поздравляю Вы вышли за {{count-1}} шаг{{m}}! Сыграем еще разок?')
+                window.location.href ='/'
+                </script>
+                <a class="btn btn-primary" href="/">Сыграем еще разок?</a>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+<table class="table table-bordered">
+    {% for i in range(table|length) %}
+        <tr>
+            {% for j in range(table[0]|length) %}
+                {% if table[i][j] == 1 %}
+                    <td class="table-bordered">*</td>
+                {% elif table[i][j] == 999 %}
+                    <td><b>exit</b></td>
+                {% else %}
+                    <td class="table-bordered"></td>
+                {% endif %}
+            {% endfor %}
+        </tr>
+    {% endfor %}
+</table>
+{% endblock %}

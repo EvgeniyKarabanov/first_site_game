@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+    <html lang="en">
+{% block title %}
+<title class="title">
+    {% block app_title %}
+    {% endblock %}
+</title>
+
+{% endblock %}
+
+
+
+{% block content %}
+
+<div>
+    <body style="background-image: url(static/img/back.gif); background-repeat: no-repeat; background-position: center; background-attachment: fixed" >
+    </body>
+    <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-12">
+        {% block app_content %}
+        {% endblock %}
+        </div>
+        <div class="col-lg-8 col-md-8 col-sm-12 desc">
+            {%block app_content_rigth%}
+            {%endblock%}
+        </div>
+    <div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}"/>
+{% endblock %}

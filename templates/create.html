@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block app_title %}
+Настройки
+{% endblock %}
+
+{% block app_content %}
+
+    <form action="/lab/", method="post">
+            {{ form.csrf_token() }}
+            {% for field in form if field.name not in ["csrf_token", "submit"] %}
+                <p class="label label-primary"> {{ field.label() }} </p>
+                <p>
+                    {{ field }}
+                    {% for error in field.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </p>
+                {% endfor %}
+            {{ form.submit }}
+</form>
+{% endblock %}
